@@ -1,17 +1,46 @@
+<!-- Copyright 2022 Emily Chu.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+
+    * Neither the name of the Yahoo! Inc. nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL YAHOO! INC. BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ -->
+
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title></title>
-  <script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js"></script>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js"></script>
 </head>
 <style>
 html, body {
-  top: 0;
-  left: 0;
-  margin: 0;
-  background-color: black;
+	top: 0;
+	left: 0;
+	margin: 0;
+	background-color: black;
 }
 </style>
 <body>
@@ -39,14 +68,18 @@ var trail = [];
 var particles = [];
 
 function preload() {
-    // soundFile = loadSound(['files/soundscape1_clip.mp3']);
-    // soundFile = loadSound(['files/oi1.mp3']);
-    soundFile = loadSound(['files/dreamer.mp3']);
-      theShader = new p5.Shader(this.renderer, vertShader, fragShader);
+		// soundFile = loadSound(['files/soundscape1_clip.mp3']);
+		// soundFile = loadSound(['files/oi1.mp3']);
+<<<<<<< HEAD
+		soundFile = loadSound(['files/dreamer.mp3']);
+=======
+		soundFile = loadSound(['files/lanights-yasuko_agawa.mp3']);
+>>>>>>> parent of 8e4f714 (1)
+  		theShader = new p5.Shader(this.renderer, vertShader, fragShader);
 }
 
 function setup() {
-  fft = new p5.FFT();
+	fft = new p5.FFT();
 
   pixelDensity(1);
 
@@ -63,31 +96,30 @@ function setup() {
 
 function draw() {
 
-  fft.analyze();
-  bass = (int)(fft.getEnergy("bass"));
-  lmid = (int)(fft.getEnergy("lowMid"));
-  mid = (int)(fft.getEnergy("mid"));
-  hmid = (int)(fft.getEnergy("highMid"));
-  treble = (int)(fft.getEnergy("treble"));
-  smooth(treble)
-  smooth(mid)
-  smooth(bass)
-  treble= map(treble, 0, 300, 1, 30, 0.5);
-  bass = map(bass, 0, 300, -900,900, 1);
-  bass2 = map(bass, 0, 300, -20,20, 1);
-  bass3 = map(bass, 0, 300, 5,30, 1);
-  mid = map(mid, 0, 300, 0, 30, 1);
+	fft.analyze();
+	bass = (int)(fft.getEnergy("bass"));
+	lmid = (int)(fft.getEnergy("lowMid"));
+	mid = (int)(fft.getEnergy("mid"));
+	hmid = (int)(fft.getEnergy("highMid"));
+	treble = (int)(fft.getEnergy("treble"));
+	smooth(treble)
+	smooth(mid)
+	smooth(bass)
+	treble= map(treble, 0, 300, 1, 30, 0.5);
+	bass = map(bass, 0, 300, -900,900, 1);
+	bass2 = map(bass, 0, 300, -20,20, 1);
+	mid = map(mid, 0, 300, 0, 30, 1);
 
   background(0);
   noStroke();
   //circleSizeX = map(noise(frameCount*0.003), 0, 1, 300, -200);
   //circleSizeX = map(noise(frameCount*0.005), 0, 1, 500, -500);
   circleSizeX = (map(sin(frameCount*0.04), -1, 1, -200, 200))- (map(sin(bass*0.04), -1, 1, -100, 500));
-  circleSizeY = (map(sin(treble*0.04), -1, 1, -100, 500));
+  circleSizeY = (map(sin(mid*0.04), -1, 1, -100, 500));
   // circleSizeY = bass;
   //circleSizeX = map(cos(frameCount*0.01), -1, 1, 300, -150);
   //circleSizeY = random(0, 300);
-  noiseSpeed = 0.006;
+  noiseSpeed = 0.001;
   
   countPosition = counter/4;
   
@@ -172,24 +204,24 @@ function draw() {
 
 
 // on key pressed...
-  function keyPressed(e) {
+	function keyPressed(e) {
 
-    // spacebar pauses
-    if (e.keyCode == 32) {
-      if (soundFile.isPlaying()) {
-        soundFile.pause();
-      } else {
-        soundFile.play();
-        (console.log('playing'))
-      }
-    }
+	  // spacebar pauses
+	  if (e.keyCode == 32) {
+	    if (soundFile.isPlaying()) {
+	      soundFile.pause();
+	    } else {
+	      soundFile.play();
+	      (console.log('playing'))
+	    }
+	  }
 
-    // 'n' keypress toggles normalize on/off
-    if (e.keyCode == 78) {
-      amplitude.toggleNormalize();
-    }
+	  // 'n' keypress toggles normalize on/off
+	  if (e.keyCode == 78) {
+	    amplitude.toggleNormalize();
+	  }
 
-  }
+	}
 
 
 // function mousePressed() {
@@ -230,7 +262,7 @@ function Particle(x, y, vx, vy) {
   this.vel = new p5.Vector(vx, vy);
   this.vel.mult(random(5));
   this.vel.rotate(radians(bass2));
-  this.mass = bass3;
+  this.mass = random(10, 20);
   this.airDrag = 0.98;
   this.colorIndex = int(random(colorScheme.length));
 
@@ -241,61 +273,61 @@ function Particle(x, y, vx, vy) {
 }
 
 let vertShader = `
-  precision highp float;
+	precision highp float;
 
-  attribute vec3 aPosition;
+	attribute vec3 aPosition;
 
-  void main() {
-    vec4 positionVec4 = vec4(aPosition, 1.0);
-    positionVec4.xy = positionVec4.xy * 2.0 - 1.0;
-    gl_Position = positionVec4;
-  }
+	void main() {
+		vec4 positionVec4 = vec4(aPosition, 1.0);
+		positionVec4.xy = positionVec4.xy * 2.0 - 1.0;
+		gl_Position = positionVec4;
+	}
 `;
 
 let fragShader = `
-  precision highp float;
-  
-  uniform vec2 resolution;
-  uniform int trailCount;
-  uniform vec2 trail[${MAX_TRAIL_COUNT}];
-  uniform int particleCount;
-  uniform vec3 particles[${MAX_PARTICLE_COUNT}];
-  uniform vec3 colors[${MAX_PARTICLE_COUNT}];
+	precision highp float;
+	
+	uniform vec2 resolution;
+	uniform int trailCount;
+	uniform vec2 trail[${MAX_TRAIL_COUNT}];
+	uniform int particleCount;
+	uniform vec3 particles[${MAX_PARTICLE_COUNT}];
+	uniform vec3 colors[${MAX_PARTICLE_COUNT}];
 
-  void main() {
-      vec2 st = gl_FragCoord.xy / resolution.xy;  // Warning! This is causing non-uniform scaling.
+	void main() {
+			vec2 st = gl_FragCoord.xy / resolution.xy;  // Warning! This is causing non-uniform scaling.
 
-      float r = 0.0;
-      float g = 0.0;
-      float b = 0.0;
+			float r = 0.0;
+			float g = 0.0;
+			float b = 0.0;
 
-      for (int i = 0; i < ${MAX_TRAIL_COUNT}; i++) {
-        if (i < trailCount) {
-          vec2 trailPos = trail[i];
-          float value = float(i) / distance(st, trailPos.xy) * 0.00015;  // Multiplier may need to be adjusted if max trail count is tweaked.
-          r += value * 0.1;
-          g += value * 0.01;
-          b += value *0.4;
-        }
-      }
+			for (int i = 0; i < ${MAX_TRAIL_COUNT}; i++) {
+				if (i < trailCount) {
+					vec2 trailPos = trail[i];
+					float value = float(i) / distance(st, trailPos.xy) * 0.00015;  // Multiplier may need to be adjusted if max trail count is tweaked.
+					// r += value * 0.4;
+					g += value * 0.005;
+					b += value * 0.7;
+				}
+			}
 
-      float mult = 0.00001;
-      
-      for (int i = 0; i < ${MAX_PARTICLE_COUNT}; i++) {
-        if (i < particleCount) {
-          vec3 particle = particles[i];
-          vec2 pos = particle.xy;
-          float mass = particle.z;
-          vec3 color = colors[i];
+			float mult = 0.00001;
+			
+			for (int i = 0; i < ${MAX_PARTICLE_COUNT}; i++) {
+				if (i < particleCount) {
+					vec3 particle = particles[i];
+					vec2 pos = particle.xy;
+					float mass = particle.z;
+					vec3 color = colors[i];
 
-          r += color.r / distance(st, pos) * mult * mass;
-          g += color.g / distance(st, pos) * mult * mass;
-          b += color.b / distance(st, pos) * mult * mass;
-        }
-      }
+					r += color.r / distance(st, pos) * mult * mass;
+					g += color.g / distance(st, pos) * mult * mass;
+					b += color.b / distance(st, pos) * mult * mass;
+				}
+			}
 
-      gl_FragColor = vec4(r, g, b, 1.0);
-  }
+			gl_FragColor = vec4(r, g, b, 1.0);
+	}
 `;
 
 </script>
